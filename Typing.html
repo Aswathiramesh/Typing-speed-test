@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing speed test</title>
+    <h1 style="text-align: center;">Typing Speed Test</h1>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding:50px;
+            background-color: #f4f4;
+        }
+        #text{
+            font-size: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            background: #fff;
+            padding:15px;
+            border:1px solid #ccc;
+        }
+        #input{
+            width:600px;
+            height:100px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #result{
+            margin-top: 20px;
+            padding:10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="text">Loading...</div>
+    <textarea id="input" placeholder="start typing here..." disabled></textarea>
+    <div id="result"></div>
+    <button onclick="startTest()">Start Test</button>
+
+    <script>
+        const textText=`Typing speed tests are a great way to improve your typing skills and accuarcy.;`
+        const timeLimit=30;
+        let startTime,timer;
+
+        const textE1=document.getElementById("text");
+        const inputE1=document.getElementById("input");
+        const resultE1=document.getElementById("result");
+
+        function startTest(){
+            inputE1.value=" ";
+            inputE1.disabled=false;
+            inputE1.focus();
+            textE1.textContent=textText;
+            resultE1.textContent="";
+            startTime=new Date().getTime();
+
+            timer=setTimeout(endTest, timeLimit*1000);
+        }
+        function endTest(){
+            inputE1.disabled=true;
+            const endTime=new Date().getTime();
+            const typedText=inputE1.value.trim();
+            const timeTaken=(endTime-startTime)/1000;
+            const words=typedText.split(/\s+/).length;
+            const speed=Math.round((words/timeTaken)*60);
+            resultE1.textContent=`Time's up! your speed is ${speed} words per minute.`;
+        }
+    </script>
+    
+</body>
+</html>
